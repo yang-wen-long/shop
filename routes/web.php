@@ -102,12 +102,12 @@ Route::domain('www.laravel.com')->group(function(){
 	//修改购物车的方法
 	Route::any("/update","Index\CatrController@update");
 	//确认购物车订单方法
-	Route::any("/confirmorder","Index\CatrController@confirmorder");
+	Route::any("/confirmorder{id?}","Index\CatrController@confirmorder");
 	//添加收货地址方法
 	Route::any("/address/{id?}","Index\AddressController@address");
-	//地址
 	Route::any("/addlist","Index\AddressController@addlist");
 	Route::any("/ress","Index\AddressController@ress");
+	Route::any("/adddesc","Index\AddressController@adddesc");
 	//订单方法
 	Route::any("/seccess","Index\AddressController@seccess");
 	//添加购物车的数据

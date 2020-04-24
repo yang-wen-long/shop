@@ -65,7 +65,93 @@ class CatrController extends Controller
 		echo returnJson(0);
 		exit;
 	}
-	// // 购物车订单方法
+	// 购物车订单方法
+	public function confirmorder(){
+		//登录的用户id
+		$user_id = session("code")->user_id;
+		//判断是否有收货地址
+		$add=AddressModel::where("user_id","=",$user_id)->get()->toArray();
+		if($add==[]){
+			return redirect("/address");
+		}
+		//展示收货地址
+		$desc=AddressModel::where("user_id","=",$user_id)->get();
+		$add=AddressModel::where("user_id","=",$user_id)->get()->toArray();
+		if($add==[]){
+			return redirect("/address");
+		}
+		$goods_id = request()->str;
+		$where=[
+			"user_id"=>$user_id,
+			"goods_id"=>$goods_id
+		];
+		$all=Shop_CatrModel::where($where)->get();
+		$allmoney=0;
+		foreach($all as $k=>$a){
+			$allmoney=$a["goods_price"]*$a["buy_num"];
+			$allmoney+=$allmoney;
+		}
+		// dump($all);
+		// dd($add);
+		return view("/Index/index/catrlist",compact("all","allmoney","desc"));
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	// //购物车订单方法
 	// public function confirmorder(){
 	// 	//登录的用户id
 	// 	$user_id = session("code")->user_id;
@@ -73,104 +159,32 @@ class CatrController extends Controller
 	// 	if($add==[]){
 	// 		return redirect("/address");
 	// 	}
+	// 	//展示收货地址
+	// 	$desc=AddressModel::where("user_id","=",$user_id)->get();
+	// 	// dd($desc);
+	// 	//接过来的ID值
 	// 	$goods_id = request()->str;
+	// 	//转换成数组
+	// 	$goods_id = explode(",",$goods_id);
+	// 	//组织条件
 	// 	$where=[
 	// 		"user_id"=>$user_id,
 	// 		"goods_id"=>$goods_id
-	// 	];
-	// 	$all=Shop_CatrModel::where($where)->get();
-	// 	// $price=0;
-	// 	// foreach($all as $k=>$a){
-	// 	// 	$price=$a["goods_price"]*$a["buy_num"];
-	// 	// 	dd($price);
-	// 	// }
-	// 	// dump($all);
-	// 	// dd($add);
-	// 	return view("/Index/index/catrlist",["all"=>$all,"add"=>$add]);
+	// 	];	
+	// 	// 根据ID查询用户ID
+	// 	$all=Shop_CatrModel::whereIn("goods_id",$goods_id)->where("user_id","=",$user_id)->get();
+	// 	//商品总价
+	// 	$allmoney = 0;
+	// 	foreach($all as $kk=>$aa){
+	// 		$allmoney=$aa["goods_price"] * $aa["buy_num"];
+	// 		$allmoney += $allmoney;
+	// 	}
+	// 	// dd($desc->user_id);
+	// 	// dd($allmoney);
+	// 	// dd($all);
+	// 	//返回参数
+	// 	return view("/Index/index/catrlist",compact("all","allmoney","desc"));
 	// }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	//购物车订单方法
-	public function confirmorder(){
-		//登录的用户id
-		$user_id = session("code")->user_id;
-		$add=AddressModel::where("user_id","=",$user_id)->get()->toArray();
-		if($add==[]){
-			return redirect("/address");
-		}
-		$desc=AddressModel::where("user_id","=",$user_id)->get();
-		$goods_id = request()->str;
-		$goods_id = explode(",",$goods_id);
-		$where=[
-			"user_id"=>$user_id,
-			"goods_id"=>$goods_id
-		];
-		// dd($goods_id);
-		$all=Shop_CatrModel::whereIn("goods_id",$goods_id)->where("user_id","=",$user_id)->get();
-		$allmoney = 0;
-		foreach($all as $kk=>$aa){
-			$allmoney=$aa["goods_price"] * $aa["buy_num"];
-			$allmoney += $allmoney;
-		}
-		// dd($desc->user_id);
-		// dd($allmoney);
-		// dd($all);
-		return view("/Index/index/catrlist",["all"=>$all,"allmoney"=>$allmoney,"add"=>$desc]);
-	}
 
 
 }

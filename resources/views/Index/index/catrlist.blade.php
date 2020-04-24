@@ -18,7 +18,7 @@
           <a href="{{url('/address')}}"><img src="/static/index/images/jian-new.png" /></a>
         </td>
        </tr> 
-       @foreach($add as $dec) 
+       @foreach($desc as $dec) 
          <tr>
             <td>收货人：{{$dec->address_name}}</td>
             <td>手机号：{{$dec->address_detail}}</td>

@@ -145,7 +145,8 @@ class LoginController extends Controller
     }   
     //我的
     public function getuser(){
-        return view("Index/logon/userindex");
+        $user_name = session("code")->user_name;
+        return view("Index/logon/userindex",["user_name"=>$user_name]);
     }
 
 

@@ -1,5 +1,5 @@
 @extends('layouts.shop')
-@section('title', '添加购物车')
+@section('title', '添加收货地址')
 @section('content')
 <header>
   <a href="javascript:history.back(-1)" class="back-off fl"><span class="glyphicon glyphicon-menu-left"></span></a>

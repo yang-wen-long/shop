@@ -51,5 +51,9 @@ class AddressController extends Controller
     public function seccess(){
     	return view("/Index/address/success");
     }
+    //收货地址方法
+    public function adddesc(){
+        return vire("/Index/logon/Add-address");
+    }
 
 }
